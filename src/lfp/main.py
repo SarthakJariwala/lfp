@@ -28,20 +28,28 @@ def new(project_name: str = typer.Argument(None, help="Your project name")):
             raise typer.Exit(1)
     project_name = project_name.lower().replace(" ", "_").replace("-", "_")
     database: str = questionary.select(
-        "Which database do you want to use?", default="sqlite", choices=["sqlite", "postgresql"]
+        "Which database do you want to use?",
+        default="sqlite",
+        choices=["sqlite", "postgresql"],
     ).ask()
     frontend: str = questionary.select(
-        "Which frontend do you want to use?", choices=["htmx", "vue", "react", "svelte"], default="vue"
+        "Which frontend do you want to use?", choices=["htmx", "vue", "react", "svelte"]
     ).ask()
-    tailwind: bool = questionary.confirm("Do you want to use Tailwind CSS?", default=True).ask()
-    docker_in_dev: bool = questionary.confirm("Do you want to use Docker in development?", default=True).ask()
-    docker_in_prod: bool = questionary.confirm("Do you want to use Docker in production?", default=True).ask()
+    tailwind: bool = questionary.confirm(
+        "Do you want to use Tailwind CSS?", default=True
+    ).ask()
+    docker_in_dev: bool = questionary.confirm(
+        "Do you want to use Docker in development?", default=True
+    ).ask()
+    docker_in_prod: bool = questionary.confirm(
+        "Do you want to use Docker in production?", default=True
+    ).ask()
 
-    if frontend == "vue":
-        src_path = "gh:SarthakJariwala/django-vite-inertia"
-    else:
+    if frontend == "htmx":
         typer.echo("Frontend not supported yet")
         raise typer.Exit(1)
+    else:
+        src_path = "gh:SarthakJariwala/django-vite-inertia"
 
     data = {
         "project_name": project_name,
@@ -54,5 +62,7 @@ def new(project_name: str = typer.Argument(None, help="Your project name")):
     with Status(f"Creating project {project_name}..."):
         project_path = Path(project_name)
         os.makedirs(project_path, exist_ok=True)
-        with copier.Worker(src_path=src_path, dst_path=project_path, data=data) as worker:
+        with copier.Worker(
+            src_path=src_path, dst_path=project_path, data=data
+        ) as worker:
             worker.run_copy()
