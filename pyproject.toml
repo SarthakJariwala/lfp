@@ -1,6 +1,6 @@
 [project]
 name = "lfp"
-version = "0.1.0"
+version = "0.2.0"
 description = "Battery pack for your Django project"
 readme = "README.md"
 authors = [{ name = "Sarthak Jariwala", email = "sarthak@sarthakjariwala.com" }]
@@ -15,6 +15,4 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [dependency-groups]
-dev = [
-    "pytest>=8.3.4",
-]
+dev = ["pytest>=8.3.4"]
