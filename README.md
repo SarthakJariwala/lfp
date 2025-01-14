@@ -2,6 +2,8 @@
 
 Battery pack for your Django project.
 
+> Named after `Lithium (Li) Iron (Fe) Phosphate (P)` (LFP) battery.
+
 ## Installation
 
 Install it in a virtual environment:
