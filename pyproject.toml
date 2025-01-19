@@ -1,6 +1,6 @@
 [project]
 name = "lfp"
-version = "0.2.0"
+version = "0.3.0"
 description = "Battery pack for your Django project"
 readme = "README.md"
 authors = [{ name = "Sarthak Jariwala", email = "sarthak@sarthakjariwala.com" }]
