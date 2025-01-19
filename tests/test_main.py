@@ -16,11 +16,11 @@ runner = CliRunner()
         ("sqlite", "vue", True, True, True),
         ("sqlite", "react", True, True, True),
         ("sqlite", "svelte", True, True, True),
-        # ("sqlite", "htmx", True, True, True),  # htmx not supported yet
+        ("sqlite", "htmx", False, True, True),
         ("postgresql", "vue", True, True, True),
         ("postgresql", "react", True, True, True),
         ("postgresql", "svelte", True, True, True),
-        # ("postgresql", "htmx", True, True, True),  # htmx not supported yet
+        ("postgresql", "htmx", False, True, True),
         ("sqlite", "vue", False, True, True),
         ("sqlite", "vue", True, False, True),
         ("sqlite", "vue", True, True, False),
@@ -65,19 +65,20 @@ def test_new_project_with_options(
             assert (project_path / "test_project" / "settings.py").exists()
             assert (project_path / "test_project" / "settings.py").is_file()
 
-            assert (project_path / "src").exists()
-            assert (project_path / "src").is_dir()
-            assert (project_path / "src" / "js").exists()
-            assert (project_path / "src" / "js").is_dir()
-            assert (project_path / "src" / "css").exists()
-            assert (project_path / "src" / "css").is_dir()
+            if frontend != "htmx":
+                assert (project_path / "src").exists()
+                assert (project_path / "src").is_dir()
+                assert (project_path / "src" / "js").exists()
+                assert (project_path / "src" / "js").is_dir()
+                assert (project_path / "src" / "css").exists()
+                assert (project_path / "src" / "css").is_dir()
 
-            if frontend == "react":
-                assert (project_path / "src" / "js" / "main.jsx").exists()
-                assert (project_path / "src" / "js" / "main.jsx").is_file()
-            else:
-                assert (project_path / "src" / "js" / "main.js").exists()
-                assert (project_path / "src" / "js" / "main.js").is_file()
+                if frontend == "react":
+                    assert (project_path / "src" / "js" / "main.jsx").exists()
+                    assert (project_path / "src" / "js" / "main.jsx").is_file()
+                else:
+                    assert (project_path / "src" / "js" / "main.js").exists()
+                    assert (project_path / "src" / "js" / "main.js").is_file()
 
             if tailwind:
                 tailwind_config_path = project_path / "tailwind.config.js"
@@ -99,23 +100,3 @@ def test_new_project_with_options(
                 assert (project_path / "docker_startup.sh").is_file()
         finally:
             os.chdir(original_dir)
-
-
-def test_htmx_frontend():
-    """Test that htmx frontend is not supported yet"""
-    result = runner.invoke(
-        app,
-        [
-            "new",
-            "test_project",
-            "--database",
-            "sqlite",
-            "--frontend",
-            "htmx",
-            "--no-tailwind",
-            "--no-docker-in-dev",
-            "--no-docker-in-prod",
-        ],
-    )
-    assert result.exit_code == 1
-    assert "Frontend not supported yet" in result.stdout

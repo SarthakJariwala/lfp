@@ -79,20 +79,20 @@ def new(
             "Do you want to use Docker in production?", default=True
         ).ask()
 
-    if frontend == "htmx":
-        typer.echo("Frontend not supported yet")
-        raise typer.Exit(1)
-    else:
-        src_path = "gh:SarthakJariwala/django-vite-inertia"
-
     data = {
         "project_name": project_name,
         "database": database,
-        "frontend": frontend,
-        "tailwind_css": tailwind,
         "docker_dev": docker_in_dev,
         "docker_prod": docker_in_prod,
     }
+
+    if frontend == "htmx":
+        src_path = "gh:SarthakJariwala/lfp-htmx-template"
+    else:
+        src_path = "gh:SarthakJariwala/django-vite-inertia"
+        data["frontend"] = frontend
+        data["tailwind_css"] = tailwind
+
     with Status(f"Creating project {project_name}..."):
         project_path = Path(project_name)
         os.makedirs(project_path, exist_ok=True)
