@@ -5,7 +5,12 @@ description = "Battery pack for your Django project"
 readme = "README.md"
 authors = [{ name = "Sarthak Jariwala", email = "sarthak@sarthakjariwala.com" }]
 requires-python = ">=3.9"
-dependencies = ["copier>=9.4.1", "questionary>=2.1.0", "typer>=0.15.1"]
+dependencies = [
+    "copier>=9.4.1",
+    "libcst>=1.6.0",
+ "questionary>=2.1.0",
+ "typer>=0.15.1",
+]
 
 [project.scripts]
 lfp = "lfp.main:app"
