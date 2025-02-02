@@ -1,6 +1,6 @@
 import libcst as cst
 
-from lfp.cst import NewSettingTransformer, Transformer
+from lfp.parsers.cst import ExistingListTransformer, NewSettingTransformer
 
 
 def test_addition_to_list():
@@ -35,7 +35,7 @@ OTHER_LIST = [
 
     # Apply the transformer
     transformed_module = module.visit(
-        Transformer(
+        ExistingListTransformer(
             setting_to_update="INSTALLED_APPS",
             apps_to_add=["mynewapp", "anotherapp"],
         )

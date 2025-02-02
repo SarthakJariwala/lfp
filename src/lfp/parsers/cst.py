@@ -2,7 +2,7 @@ import libcst as cst
 from libcst.matchers import Assign, matches
 
 
-class Transformer(cst.CSTTransformer):
+class ExistingListTransformer(cst.CSTTransformer):
     def __init__(self, setting_to_update: str, apps_to_add: str | list[str]):
         self.setting_to_update = setting_to_update
         self.apps_to_add = (
