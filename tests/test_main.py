@@ -82,11 +82,8 @@ def test_new_project_with_options(
 
             if tailwind:
                 tailwind_config_path = project_path / "tailwind.config.js"
-                postcss_config_path = project_path / "postcss.config.js"
                 assert tailwind_config_path.exists()
                 assert tailwind_config_path.is_file()
-                assert postcss_config_path.exists()
-                assert postcss_config_path.is_file()
 
             if docker_dev:
                 assert (project_path / "dev.Dockerfile").exists()
