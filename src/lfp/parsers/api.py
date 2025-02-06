@@ -1,5 +1,5 @@
 """
-API to interact with the parsers
+API to interact with the CST parsers
 """
 
 from pathlib import Path
@@ -9,7 +9,7 @@ import libcst as cst
 from .cst import ExistingListTransformer, NewSettingTransformer
 
 
-def add_new_value(var_name: str, var_value: str | list[str], file_path: Path):
+def add_new_value(var_name: str, var_value: str | list[str], file_path: Path) -> None:
     """
     Add a new value to the specified setting
 
@@ -22,13 +22,9 @@ def add_new_value(var_name: str, var_value: str | list[str], file_path: Path):
     with file_path.open("r") as f:
         file_content = f.read()
 
-    # parse the file
+    # parse the file, create transformer, and apply it
     module = cst.parse_module(file_content)
-
-    # create the transformer
     transformer = NewSettingTransformer(var_name, var_value)
-
-    # apply the transformer
     updated_module = module.visit(transformer)
 
     # write the updated file
@@ -38,7 +34,7 @@ def add_new_value(var_name: str, var_value: str | list[str], file_path: Path):
 
 def update_existing_list(
     var_name: str, var_value: str | list[str], file_path: Path
-):
+) -> None:
     """
     Update the value of an existing list in the specified setting
 
