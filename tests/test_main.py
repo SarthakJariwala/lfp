@@ -46,9 +46,7 @@ def test_new_project_with_options(
                     frontend,
                     "--tailwind" if tailwind else "--no-tailwind",
                     "--docker-in-dev" if docker_dev else "--no-docker-in-dev",
-                    "--docker-in-prod"
-                    if docker_prod
-                    else "--no-docker-in-prod",
+                    "--docker-in-prod" if docker_prod else "--no-docker-in-prod",
                 ],
             )
             assert result.exit_code == 0
@@ -66,19 +64,19 @@ def test_new_project_with_options(
             assert (project_path / "test_project" / "settings.py").is_file()
 
             if frontend != "htmx":
-                assert (project_path / "src").exists()
-                assert (project_path / "src").is_dir()
-                assert (project_path / "src" / "js").exists()
-                assert (project_path / "src" / "js").is_dir()
-                assert (project_path / "src" / "css").exists()
-                assert (project_path / "src" / "css").is_dir()
+                assert (project_path / "frontend").exists()
+                assert (project_path / "frontend").is_dir()
+                assert (project_path / "frontend" / "js").exists()
+                assert (project_path / "frontend" / "js").is_dir()
+                assert (project_path / "frontend" / "css").exists()
+                assert (project_path / "frontend" / "css").is_dir()
 
                 if frontend == "react":
-                    assert (project_path / "src" / "js" / "main.jsx").exists()
-                    assert (project_path / "src" / "js" / "main.jsx").is_file()
+                    assert (project_path / "frontend" / "js" / "main.jsx").exists()
+                    assert (project_path / "frontend" / "js" / "main.jsx").is_file()
                 else:
-                    assert (project_path / "src" / "js" / "main.js").exists()
-                    assert (project_path / "src" / "js" / "main.js").is_file()
+                    assert (project_path / "frontend" / "js" / "main.js").exists()
+                    assert (project_path / "frontend" / "js" / "main.js").is_file()
 
             if tailwind:
                 tailwind_config_path = project_path / "tailwind.config.js"
