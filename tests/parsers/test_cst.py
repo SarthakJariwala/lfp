@@ -36,8 +36,8 @@ OTHER_LIST = [
     # Apply the transformer
     transformed_module = module.visit(
         ExistingListTransformer(
-            setting_to_update="INSTALLED_APPS",
-            apps_to_add=["mynewapp", "anotherapp"],
+            var_name="INSTALLED_APPS",
+            var_value=["mynewapp", "anotherapp"],
         )
     )
 
@@ -82,8 +82,8 @@ MY_SETTING = [
     # Apply the transformer
     transformed_module = module.visit(
         NewSettingTransformer(
-            setting_name="MY_SETTING",
-            setting_value=["value1", "value2", "value3"],
+            var_name="MY_SETTING",
+            var_value=["value1", "value2", "value3"],
         )
     )
     assert transformed_module.code == expected
@@ -124,8 +124,8 @@ MY_SETTING = [
     # Apply the transformer
     transformed_module = module.visit(
         NewSettingTransformer(
-            setting_name="MY_SETTING",
-            setting_value=["value1"],
+            var_name="MY_SETTING",
+            var_value=["value1"],
         )
     )
 
@@ -165,8 +165,8 @@ MY_SETTING = 'value1'
     # Apply the transformer
     transformed_module = module.visit(
         NewSettingTransformer(
-            setting_name="MY_SETTING",
-            setting_value="value1",
+            var_name="MY_SETTING",
+            var_value="value1",
         )
     )
 
