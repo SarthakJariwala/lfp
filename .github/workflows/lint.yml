@@ -1,0 +1,23 @@
+name: Consistent code style
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+jobs:
+  style-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: isort/isort-action@v1
+        with:
+          configuration: "--check --diff --profile=black"
+      - uses: astral-sh/ruff-action@v1
+        with:
+          args: "check"
+          changed-files: "true"
+      - uses: astral-sh/ruff-action@v1
+        with:
+          args: "format --check"
+          changed-files: "true"

@@ -24,9 +24,7 @@ def new(
     frontend: Annotated[
         str | None, typer.Option(help="Frontend framework to use")
     ] = None,
-    tailwind: Annotated[
-        bool | None, typer.Option(help="Use Tailwind CSS")
-    ] = None,
+    tailwind: Annotated[bool | None, typer.Option(help="Use Tailwind CSS")] = None,
     docker_in_dev: Annotated[
         bool | None, typer.Option(help="Use Docker in development")
     ] = None,
