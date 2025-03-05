@@ -84,6 +84,10 @@ def new(
         data["frontend"] = frontend
         data["tailwind_css"] = tailwind
 
+    # currently, react integration supports a starter_kit based on shadcn/ui
+    if frontend == "react":
+        data["starter_kit"] = True
+
     with Status(f"Creating project {project_name}..."):
         project_path = Path(project_name)
         os.makedirs(project_path, exist_ok=True)
