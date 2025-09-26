@@ -31,6 +31,9 @@ def new(
     docker_in_prod: Annotated[
         bool | None, typer.Option(help="Use Docker in production")
     ] = None,
+    allauth: Annotated[
+        bool | None, typer.Option(help="Use django-allauth for authentication")
+    ] = None,
 ):
     """
     Create a new Django project with battery pack configured
@@ -70,11 +73,17 @@ def new(
             "Do you want to use Docker in production?", default=True
         ).ask()
 
+    if allauth is None:
+        allauth = questionary.confirm(
+            "Do you want to use django-allauth for authentication?", default=True
+        ).ask()
+
     data = {
         "project_name": project_name,
         "database": database,
         "docker_dev": docker_in_dev,
         "docker_prod": docker_in_prod,
+        "allauth": allauth,
     }
 
     if frontend == "htmx":

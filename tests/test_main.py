@@ -11,24 +11,24 @@ runner = CliRunner()
 
 
 @pytest.mark.parametrize(
-    "database,frontend,tailwind,docker_dev,docker_prod",
+    "database,frontend,tailwind,docker_dev,docker_prod,allauth",
     [
-        ("sqlite", "vue", True, True, True),
-        ("sqlite", "react", True, True, True),
-        ("sqlite", "svelte", True, True, True),
-        ("sqlite", "htmx", False, True, True),
-        ("postgresql", "vue", True, True, True),
-        ("postgresql", "react", True, True, True),
-        ("postgresql", "svelte", True, True, True),
-        ("postgresql", "htmx", False, True, True),
-        ("sqlite", "vue", False, True, True),
-        ("sqlite", "vue", True, False, True),
-        ("sqlite", "vue", True, True, False),
-        ("postgresql", "vue", False, False, False),
+        ("sqlite", "vue", True, True, True, True),
+        ("sqlite", "react", True, True, True, True),
+        ("sqlite", "svelte", True, True, True, True),
+        ("sqlite", "htmx", False, True, True, True),
+        ("postgresql", "vue", True, True, True, True),
+        ("postgresql", "react", True, True, True, True),
+        ("postgresql", "svelte", True, True, True, True),
+        ("postgresql", "htmx", False, True, True, True),
+        ("sqlite", "vue", False, True, True, False),
+        ("sqlite", "vue", True, False, True, False),
+        ("sqlite", "vue", True, True, False, False),
+        ("postgresql", "vue", False, False, False, False),
     ],
 )
 def test_new_project_with_options(
-    database, frontend, tailwind, docker_dev, docker_prod
+    database, frontend, tailwind, docker_dev, docker_prod, allauth
 ):
     """Test project creation using command line options"""
     with tempfile.TemporaryDirectory() as tmpdir:
@@ -47,6 +47,7 @@ def test_new_project_with_options(
                     "--tailwind" if tailwind else "--no-tailwind",
                     "--docker-in-dev" if docker_dev else "--no-docker-in-dev",
                     "--docker-in-prod" if docker_prod else "--no-docker-in-prod",
+                    "--allauth" if allauth else "--no-allauth",
                 ],
             )
             assert result.exit_code == 0
